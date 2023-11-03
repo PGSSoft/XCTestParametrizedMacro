@@ -128,4 +128,4 @@ The macro will generate the following test methods.
 - [ ] Labels for paramter values like: `@Parametrize(input: [3.14, 2.71], labels: ["pi", "e"])`
 
 ## License
-XCTestParametrizedMacro is released under an MIT license. See [License.md](License.md)
+XCTestParametrizedMacro is released under an MIT license. See [LICENSE](LICENSE)
