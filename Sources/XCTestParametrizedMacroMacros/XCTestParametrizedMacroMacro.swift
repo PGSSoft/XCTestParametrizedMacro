@@ -18,11 +18,11 @@ public struct ParametrizeMacro: PeerMacro {
         let macroDeclarationHelper = MacroDeclarationHelper(declaration)
 
         let funcName = declaration.identifier
-        guard let inputParamName = declaration.signature.input.parameterList.first?.secondName?.text else {
+        guard let inputParamName = macroDeclarationHelper.inputParamName?.text else {
             throw ParametrizeMacroError.functionInputParamSecondNameMissing
         }
 
-        guard let inputParamType = declaration.signature.input.parameterList.first?.type else {
+        guard let inputParamType =  macroDeclarationHelper.inputParamType else {
             throw ParametrizeMacroError.functionInputParamTypeMissing
         }
 
