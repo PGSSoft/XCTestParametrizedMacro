@@ -270,4 +270,31 @@ final class SimpleValuesTests: XCTestCase {
             macros: testMacros
         )
     }
+
+    func testParametrizeInputOutput_SingleObject() throws {
+        assertMacroExpansion(
+            """
+            struct TestStruct {
+                @Parametrize(input: [3], output: [9])
+                func testPow2(input n: Int, output result: Int) {
+                    XCTAssertEqual(pow2(n),result)
+                }
+            }
+            """,
+            expandedSource: """
+            struct TestStruct {
+                func testPow2(input n: Int, output result: Int) {
+                    XCTAssertEqual(pow2(n),result)
+                }
+
+                func testPow2_N_3_Result_9() throws {
+                    let n: Int = 3
+                    let result: Int = 9
+                    XCTAssertEqual(pow2(n), result)
+                }
+            }
+            """,
+            macros: testMacros
+        )
+    }
 }

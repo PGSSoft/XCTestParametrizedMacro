@@ -6,6 +6,7 @@ enum ParametrizeMacroError: Error, CustomStringConvertible {
     case functionInputParamTypeMissing
     case functionBodyEmpty
     case macroAttributeNotAnArray
+    case macroAttributeMismatchSizeInputOutputArray
 
     var description: String {
         switch self {
@@ -19,6 +20,8 @@ enum ParametrizeMacroError: Error, CustomStringConvertible {
             return "Function must have a body."
         case .macroAttributeNotAnArray:
             return "Parametrize macro requires at least one attribute as array of input values."
+        case .macroAttributeMismatchSizeInputOutputArray:
+            return "Size of the input array and output array should be the same."
         }
     }
 }
