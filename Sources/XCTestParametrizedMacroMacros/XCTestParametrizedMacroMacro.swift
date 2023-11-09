@@ -17,7 +17,7 @@ public struct ParametrizeMacro: PeerMacro {
 
         let macroDeclarationHelper = MacroDeclarationHelper(declaration)
 
-        let funcName = declaration.identifier
+        let funcName = declaration.name
         guard let inputParamName = macroDeclarationHelper.inputParamName?.text else {
             throw ParametrizeMacroError.functionInputParamSecondNameMissing
         }

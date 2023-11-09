@@ -11,12 +11,12 @@ struct MacroDeclarationHelper {
 
     /// Returns 'TokenSyntax' representing name of the input parameter.
     var inputParamName: TokenSyntax? {
-        declaration.signature.input.parameterList.first?.secondName
+        declaration.signature.parameterClause.parameters.first?.secondName
     }
     
     /// Returns 'TypeSyntax' representing type of the input object.
     var inputParamType: TypeSyntax? {
-        declaration.signature.input.parameterList.first?.type
+        declaration.signature.parameterClause.parameters.first?.type
     }
 
     var firstAttribute: AttributeSyntax? {
@@ -25,11 +25,11 @@ struct MacroDeclarationHelper {
 
     var inputValues: ArrayElementListSyntax {
         get throws {
-            guard let firstMacroArgument = firstAttribute?.argument?.as(TupleExprElementListSyntax.self) else {
+            guard let firstMacroArgument = firstAttribute?.arguments?.as(LabeledExprListSyntax.self) else {
                 throw ParametrizeMacroError.macroAttributeNotAnArray
             }
 
-            guard let arrayOfValues = firstMacroArgument.first?.as(TupleExprElementSyntax.self)?.expression.as(ArrayExprSyntax.self)?.elements else {
+            guard let arrayOfValues = firstMacroArgument.first?.as(LabeledExprSyntax.self)?.expression.as(ArrayExprSyntax.self)?.elements else {
                 throw ParametrizeMacroError.macroAttributeNotAnArray
             }
 
