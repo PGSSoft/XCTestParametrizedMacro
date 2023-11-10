@@ -17,28 +17,7 @@ public struct ParametrizeMacro: PeerMacro {
 
         let macroDeclarationHelper = MacroDeclarationHelper(declaration)
 
-        let funcName = declaration.name
-        guard let inputParamName = macroDeclarationHelper.inputParamName?.text else {
-            throw ParametrizeMacroError.functionInputParamSecondNameMissing
-        }
-
-        guard let inputParamType =  macroDeclarationHelper.inputParamType else {
-            throw ParametrizeMacroError.functionInputParamTypeMissing
-        }
-
-        guard let codeStatements = declaration.body?.statements, codeStatements.count > 0 else {
-            throw ParametrizeMacroError.functionBodyEmpty
-        }
-
-        let textCode = codeStatements.map { "\($0.trimmed)" }.joined(separator: "\n")
-        return try macroDeclarationHelper.inputValues.map {
-                        """
-                        func \(funcName)_\(raw: inputParamName.capitalizedFirst)_\(raw: $0.asFunctionName)() throws {
-                        let \(raw: inputParamName):\(raw: inputParamType) = \($0.expression)
-                        \(raw: textCode)
-                        }
-                        """
-        }
+        return try TestMethodsFactory(macroDeclarationHelper: macroDeclarationHelper).create()
     }
 }
 

@@ -270,4 +270,5 @@ final class SimpleValuesTests: XCTestCase {
             macros: testMacros
         )
     }
+
 }
