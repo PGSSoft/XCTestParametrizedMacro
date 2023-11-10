@@ -37,7 +37,7 @@ struct TestMethodsFactory {
             let input = inputValues.map { $0 }
             let output = outputValues.map { $0 }
             guard input.count == output.count else {
-                throw ParametrizeMacroError.macroAttributeMismatchSizeInputOutputArray
+                throw ParametrizeMacroError.macroAttributeArraysMismatchSize
             }
             return try zip(input, output).map { input, output in
                 """

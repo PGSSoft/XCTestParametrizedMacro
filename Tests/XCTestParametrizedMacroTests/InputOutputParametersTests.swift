@@ -10,7 +10,7 @@ final class InputOutputParametersTests: XCTestCase {
         "Parametrize": ParametrizeMacro.self,
     ]
 
-    func testParametrizeInputOutput_SingleObject() throws {
+    func testParametrizeInputOutput_SingleInts() throws {
         assertMacroExpansion(
             """
             struct TestStruct {

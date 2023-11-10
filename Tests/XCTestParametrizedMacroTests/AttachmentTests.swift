@@ -131,7 +131,7 @@ final class AttachmentTests: XCTestCase {
             }
             """,
             diagnostics: [
-                DiagnosticSpec(message: "Parametrize macro requires at least one attribute as array of input values.", line: 2, column: 5)
+                DiagnosticSpec(message: "Parametrize macro requires at least one attribute as array of input/output values.", line: 2, column: 5)
             ],
             macros: testMacros
         )
@@ -157,7 +157,7 @@ final class AttachmentTests: XCTestCase {
             }
             """,
             diagnostics: [
-                DiagnosticSpec(message: "Parametrize macro requires at least one attribute as array of input values.", line: 2, column: 5)
+                DiagnosticSpec(message: "Parametrize macro requires at least one attribute as array of input/output values.", line: 2, column: 5)
             ],
             macros: testMacros
         )
