@@ -119,12 +119,27 @@ The macro will generate the following test methods.
     }
 ```
 
+You can also specify array of expected values and use it in your test.
+
+```swift
+    @Parametrize(
+        input: [APIEndpoint.profile,
+                APIEndpoint.transactions,
+                APIEndpoint.order("2345")],
+        output: ["https://example.com/api/me",
+                 "https://example.com/api/transactions",
+                 "https://example.com/api/order/2345"])
+    func testEndpointURL(input endpoint: APIEndpoint, output expectedUrl: String) throws {
+        XCTAssertEqual(endpoint.buildURL?.absoluteString, expectedUrl)
+    }
+```
+
 ## Features
 
 - [x] Primitive types as input values (like Int, Double, String and Bool)
 - [x] Custom objects as input values (like structs, classes and enums)
 - [x] Diagnostics for error handling
-- [ ] Expected output array of objects/values
+- [x] Expected output array of objects/values
 - [ ] Labels for paramter values like: `@Parametrize(input: [3.14, 2.71], labels: ["pi", "e"])`
 
 ## License
