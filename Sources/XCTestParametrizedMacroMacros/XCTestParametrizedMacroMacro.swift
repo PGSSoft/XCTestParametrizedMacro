@@ -25,7 +25,7 @@ extension ArrayElementSyntax {
 
     /// returns content as string representation that can be used in function name
     var asFunctionName: String {
-        let value = self.expression.description
+        let value = self.expression.trimmed.description
         return ParamValueTransformer.transform(value: value)
     }
 }

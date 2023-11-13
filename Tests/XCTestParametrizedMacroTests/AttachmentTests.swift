@@ -181,7 +181,31 @@ final class AttachmentTests: XCTestCase {
             }
             """,
             diagnostics: [
-                DiagnosticSpec(message: "Size of the input array and output array should be the same.", line: 2, column: 5)
+                DiagnosticSpec(message: "Arrays passed as an argument should be same size.", line: 2, column: 5)
+            ],
+            macros: testMacros
+        )
+    }
+
+    func testParametrizeInputOutputLabels_DifferentSizeOfArrays_ShouldFail() throws {
+        assertMacroExpansion(
+            """
+            struct TestStruct {
+                @Parametrize(input: [1,2,3], output: [1,4,3], labels: ["first", "second"])
+                func testPow2(input n: Int, output result: Int) {
+                    XCTAssertEqual(pow2(n), result)
+                }
+            }
+            """,
+            expandedSource: """
+            struct TestStruct {
+                func testPow2(input n: Int, output result: Int) {
+                    XCTAssertEqual(pow2(n), result)
+                }
+            }
+            """,
+            diagnostics: [
+                DiagnosticSpec(message: "Arrays passed as an argument should be same size.", line: 2, column: 5)
             ],
             macros: testMacros
         )
