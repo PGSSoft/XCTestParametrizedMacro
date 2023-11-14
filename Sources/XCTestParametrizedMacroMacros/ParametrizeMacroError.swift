@@ -21,7 +21,7 @@ enum ParametrizeMacroError: Error, CustomStringConvertible {
         case .macroAttributeNotAnArray:
             return "Parametrize macro requires at least one attribute as array of input/output values."
         case .macroAttributeArraysMismatchSize:
-            return "Size of the input array and output array should be the same."
+            return "Arrays passed as an argument should be same size."
         }
     }
 }

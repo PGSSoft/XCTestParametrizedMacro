@@ -71,4 +71,22 @@ struct MacroDeclarationHelper {
             return arrayOfValues
         }
     }
+
+    var labels: ArrayElementListSyntax? {
+        get throws {
+            guard let firstMacroArgument = firstAttribute?.arguments?.as(LabeledExprListSyntax.self) else {
+                throw ParametrizeMacroError.macroAttributeNotAnArray
+            }
+
+            guard let labelsArgument = firstMacroArgument.first(where: { $0.label?.text == "labels" }) else {
+                return nil
+            }
+
+            guard let arrayOfValues = labelsArgument.as(LabeledExprSyntax.self)?.expression.as(ArrayExprSyntax.self)?.elements else {
+                throw ParametrizeMacroError.macroAttributeNotAnArray
+            }
+
+            return arrayOfValues
+        }
+    }
 }

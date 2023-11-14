@@ -29,19 +29,17 @@ struct TestMethodsFactory {
         let outputParamName = macroDeclarationHelper.outputParamName?.text
         let outputParamType = macroDeclarationHelper.outputParamType
 
-        let outputValues = try macroDeclarationHelper.outputValues
-        let inputValues = try macroDeclarationHelper.inputValues
-        if let outputValues = outputValues,
-           let outputParamName = outputParamName,
-            let outputParamType = outputParamType {
-            let input = inputValues.map { $0 }
-            let output = outputValues.map { $0 }
-            guard input.count == output.count else {
-                throw ParametrizeMacroError.macroAttributeArraysMismatchSize
-            }
-            return try zip(input, output).map { input, output in
-                """
-                \(raw: buildTestMethodSignature(funcName: funcName, inputParamName: inputParamName, inputObject: input, outputParamName: outputParamName, outputObject: output))
+        let input = try macroDeclarationHelper.inputValues.map { $0 }
+        let output: [ArrayElementListSyntax.Element?] = try macroDeclarationHelper.outputValues?.map { $0 } ?? .init(repeating: nil, count: input.count)
+        let labels: [ArrayElementListSyntax.Element?] = try macroDeclarationHelper.labels?.map { $0 } ?? .init(repeating: nil, count: input.count)
+
+        guard input.count == output.count, output.count == labels.count else {
+            throw ParametrizeMacroError.macroAttributeArraysMismatchSize
+        }
+        return try zip(input, zip(output, labels)).map { (input, arg) in
+            let (output, label) = arg
+            return """
+                \(raw: buildTestMethodSignature(funcName: funcName, inputParamName: inputParamName, inputObject: input, outputParamName: outputParamName, outputObject: output, label: label))
                 \(raw: buildLocalVariables(inputParamName: inputParamName,
                 inputParamType: inputParamType,
                 inputObject: input,
@@ -51,25 +49,19 @@ struct TestMethodsFactory {
                 \(raw: try bodyFunc)
                 }
                 """
-            }
-        } else {
-            return try inputValues
-                .map {
-                    """
-                    \(raw: buildTestMethodSignature(funcName: funcName, inputParamName: inputParamName, inputObject: $0))
-                    \(raw: buildLocalVariables(inputParamName: inputParamName, inputParamType: inputParamType, inputObject: $0))
-                    \(raw: try bodyFunc)
-                    }
-                    """
-            }
         }
+
     }
 
     func buildTestMethodSignature(funcName: TokenSyntax,
                                   inputParamName: String,
                                   inputObject: ArrayElementListSyntax.Element,
                                   outputParamName: String? = nil,
-                                  outputObject: ArrayElementListSyntax.Element? = nil) -> String {
+                                  outputObject: ArrayElementListSyntax.Element? = nil,
+                                  label: ArrayElementListSyntax.Element? = nil ) -> String {
+        guard label == nil else {
+            return "func \(funcName)_\(label!.asFunctionName)() throws {"
+        }
         if let outputParamName = outputParamName, let outputObject = outputObject {
             return "func \(funcName)_\(inputParamName.capitalizedFirst)_\(inputObject.asFunctionName)_\(outputParamName.capitalizedFirst)_\(outputObject.asFunctionName)() throws {"
         } else {
