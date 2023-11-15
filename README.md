@@ -134,13 +134,35 @@ You can also specify array of expected values and use it in your test.
     }
 ```
 
+Because for example above names of test methods looks weird, You can use `labels` parameter to use custom naming.
+
+```swift
+    @Parametrize(
+        input: [APIEndpoint.order("2345")],
+        output: ["https://example.com/api/order/2345"]),
+        labels: ["order"])
+    func testEndpointURL(input endpoint: APIEndpoint, output expectedUrl: String) throws {
+        XCTAssertEqual(endpoint.buildURL?.absoluteString, expectedUrl)
+    }
+```
+
+Macro will generate following test method.
+```swift
+    func testEndpointURL_order() throws {
+        let endpoint: APIEndpoint = APIEndpoint.order("2345")
+        let expectedUrl: String =
+                         "https://example.com/api/order/2345"
+        XCTAssertEqual(endpoint.buildURL?.absoluteString, expectedUrl)
+    }
+```
+
 ## Features
 
 - [x] Primitive types as input values (like Int, Double, String and Bool)
 - [x] Custom objects as input values (like structs, classes and enums)
 - [x] Diagnostics for error handling
 - [x] Expected output array of objects/values
-- [ ] Labels for paramter values like: `@Parametrize(input: [3.14, 2.71], labels: ["pi", "e"])`
+- [x] Labels for paramter values like: `@Parametrize(input: [3.14, 2.71], labels: ["pi", "e"])`
 
 ## License
 XCTestParametrizedMacro is released under an MIT license. See [LICENSE](LICENSE)
