@@ -3,7 +3,7 @@
 <a href="https://github.com/PGSSoft/XCTestParametrizedMacro/blob/main/LICENSE"><img src="https://img.shields.io/github/license/pgssoft/xctestparametrizedmacro.svg" alt="License"></a>
 ## Summary
 
-A straightforward yet powerful Swift macro designed to simplify the unit test creation process. This tool allows you to easily parameterize your XCTest methods by automatically generating test methods based on specified arguments. Write your test method once and effortlessly generate variations with different parameters. This approach not only simplifies test maintenance but also makes identifying failing tests more effective. Inspired by JUnit parametrized tests.
+A straightforward yet powerful Swift macro designed to simplify the unit test creation process. This tool allows you to easily parameterize your XCTest methods by automatically generating test methods based on specified arguments. Write your test methods once and effortlessly generate variations with different parameters. This approach not only simplifies test maintenance but also makes identifying failing tests more effective. Inspired by JUnit parametrized tests.
 
 ## Requirements
 
@@ -162,7 +162,7 @@ Macro will generate following test method.
 - [x] Custom objects as input values (like structs, classes and enums)
 - [x] Diagnostics for error handling
 - [x] Expected output array of objects/values
-- [x] Labels for paramter values like: `@Parametrize(input: [3.14, 2.71], labels: ["pi", "e"])`
+- [x] Labels for parameter values like: `@Parametrize(input: [3.14, 2.71], labels: ["pi", "e"])`
 
 ## License
 XCTestParametrizedMacro is released under an MIT license. See [LICENSE](LICENSE)
