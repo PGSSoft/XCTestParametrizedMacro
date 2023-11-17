@@ -26,7 +26,7 @@ final class InputOutputParametersTests: XCTestCase {
                     XCTAssertEqual(pow2(n),result)
                 }
 
-                func testPow2_N_3_Result_9() throws {
+                func testPow2_N_3_Result_9() {
                     let n: Int = 3
                     let result: Int = 9
                     XCTAssertEqual(pow2(n), result)
@@ -42,14 +42,14 @@ final class InputOutputParametersTests: XCTestCase {
             """
             struct TestStruct {
                 @Parametrize(input: [4, 5], output: [16, 25])
-                func testPow2(input n: Int, output result: Int) {
+                func testPow2(input n: Int, output result: Int) throws {
                     XCTAssertEqual(pow2(n),result)
                 }
             }
             """,
             expandedSource: """
             struct TestStruct {
-                func testPow2(input n: Int, output result: Int) {
+                func testPow2(input n: Int, output result: Int) throws {
                     XCTAssertEqual(pow2(n),result)
                 }
 
@@ -86,13 +86,13 @@ final class InputOutputParametersTests: XCTestCase {
                     XCTAssertEqual(word.count, length)
                 }
 
-                func testWordLength_Word_Swift_Length_5() throws {
+                func testWordLength_Word_Swift_Length_5() {
                     let word: String = "Swift"
                     let length: Int = 5
                     XCTAssertEqual(word.count, length)
                 }
 
-                func testWordLength_Word_SwiftMacro_Length_10() throws {
+                func testWordLength_Word_SwiftMacro_Length_10() {
                     let word: String = "SwiftMacro"
                     let length: Int = 10
                     XCTAssertEqual(word.count, length)

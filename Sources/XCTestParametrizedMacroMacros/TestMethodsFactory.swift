@@ -39,7 +39,7 @@ struct TestMethodsFactory {
         return try zip(input, zip(output, labels)).map { (input, arg) in
             let (output, label) = arg
             return """
-                \(raw: buildTestMethodSignature(funcName: funcName, inputParamName: inputParamName, inputObject: input, outputParamName: outputParamName, outputObject: output, label: label))
+                \(raw: buildTestMethodSignature(funcName: funcName, inputParamName: inputParamName, inputObject: input, outputParamName: outputParamName, outputObject: output, label: label, effectSpecifiers: macroDeclarationHelper.effectSpecifiers))
                 \(raw: buildLocalVariables(inputParamName: inputParamName,
                 inputParamType: inputParamType,
                 inputObject: input,
@@ -58,14 +58,15 @@ struct TestMethodsFactory {
                                   inputObject: ArrayElementListSyntax.Element,
                                   outputParamName: String? = nil,
                                   outputObject: ArrayElementListSyntax.Element? = nil,
-                                  label: ArrayElementListSyntax.Element? = nil ) -> String {
+                                  label: ArrayElementListSyntax.Element? = nil,
+                                  effectSpecifiers: FunctionEffectSpecifiersSyntax?) -> String {
         guard label == nil else {
-            return "func \(funcName)_\(label!.asFunctionName)() throws {"
+            return "func \(funcName)_\(label!.asFunctionName)() \(effectSpecifiers?.description ?? ""){"
         }
         if let outputParamName = outputParamName, let outputObject = outputObject {
-            return "func \(funcName)_\(inputParamName.capitalizedFirst)_\(inputObject.asFunctionName)_\(outputParamName.capitalizedFirst)_\(outputObject.asFunctionName)() throws {"
+            return "func \(funcName)_\(inputParamName.capitalizedFirst)_\(inputObject.asFunctionName)_\(outputParamName.capitalizedFirst)_\(outputObject.asFunctionName)() \(effectSpecifiers?.description ?? ""){"
         } else {
-            return "func \(funcName)_\(inputParamName.capitalizedFirst)_\(inputObject.asFunctionName)() throws {"
+            return "func \(funcName)_\(inputParamName.capitalizedFirst)_\(inputObject.asFunctionName)() \(effectSpecifiers?.description ?? ""){"
         }
     }
 
