@@ -15,14 +15,14 @@ final class LabelsParameterTests: XCTestCase {
             """
             struct TestStruct {
                 @Parametrize(input: [3.1415], labels: ["Pi"])
-                func testValidateDouble(input n: Double) {
+                func testValidateDouble(input n: Double) throws {
                     XCTAssertNotNil(validate_number(n))
                 }
             }
             """,
             expandedSource: """
             struct TestStruct {
-                func testValidateDouble(input n: Double) {
+                func testValidateDouble(input n: Double) throws {
                     XCTAssertNotNil(validate_number(n))
                 }
 
@@ -52,7 +52,7 @@ final class LabelsParameterTests: XCTestCase {
                     XCTAssertEqual(pow2(n),result)
                 }
 
-                func testPow2_ThreePowerOfTheTwo() throws {
+                func testPow2_ThreePowerOfTheTwo() {
                     let n: Int = 3
                     let result: Int = 9
                     XCTAssertEqual(pow2(n), result)
@@ -79,13 +79,13 @@ final class LabelsParameterTests: XCTestCase {
                     XCTAssertEqual(pow2(n),result)
                 }
 
-                func testPow2_ThreePowerOfTheTwo() throws {
+                func testPow2_ThreePowerOfTheTwo() {
                     let n: Int = 3
                     let result: Int = 9
                     XCTAssertEqual(pow2(n), result)
                 }
 
-                func testPow2_FourPowerOfTheTwo() throws {
+                func testPow2_FourPowerOfTheTwo() {
                     let n: Int = 4
                     let result: Int = 16
                     XCTAssertEqual(pow2(n), result)

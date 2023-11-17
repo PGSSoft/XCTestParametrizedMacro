@@ -36,6 +36,11 @@ struct MacroDeclarationHelper {
         declaration.signature.parameterClause.parameters.last?.type
     }
 
+    /// Returns 'FunctionEffectSpecifiersSyntax' from method declaration.
+    var effectSpecifiers: FunctionEffectSpecifiersSyntax? {
+        declaration.signature.effectSpecifiers
+    }
+
     var firstAttribute: AttributeSyntax? {
         return declaration.attributes.first?.as(AttributeSyntax.self)
     }
