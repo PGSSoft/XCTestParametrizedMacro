@@ -51,7 +51,7 @@ struct MacroDeclarationHelper {
                 throw ParametrizeMacroError.macroAttributeNotAnArray
             }
 
-            guard let arrayOfValues = firstMacroArgument.first?.as(LabeledExprSyntax.self)?.expression.as(ArrayExprSyntax.self)?.elements else {
+            guard let arrayOfValues = firstMacroArgument.first?.expression.as(ArrayExprSyntax.self)?.elements else {
                 throw ParametrizeMacroError.macroAttributeNotAnArray
             }
 
@@ -69,7 +69,7 @@ struct MacroDeclarationHelper {
                 return nil
             }
 
-            guard let arrayOfValues = outputArgument.as(LabeledExprSyntax.self)?.expression.as(ArrayExprSyntax.self)?.elements else {
+            guard let arrayOfValues = outputArgument.expression.as(ArrayExprSyntax.self)?.elements else {
                 throw ParametrizeMacroError.macroAttributeNotAnArray
             }
 
@@ -87,7 +87,7 @@ struct MacroDeclarationHelper {
                 return nil
             }
 
-            guard let arrayOfValues = labelsArgument.as(LabeledExprSyntax.self)?.expression.as(ArrayExprSyntax.self)?.elements else {
+            guard let arrayOfValues = labelsArgument.expression.as(ArrayExprSyntax.self)?.elements else {
                 throw ParametrizeMacroError.macroAttributeNotAnArray
             }
 
