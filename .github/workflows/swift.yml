@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-22.04]
-        swift: ["5.10"]
+        swift: ["5.9"]
 
     steps:
     - uses: swift-actions/setup-swift@v1
